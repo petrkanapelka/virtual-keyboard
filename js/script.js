@@ -4,6 +4,7 @@ function createTextarea() {
   textArea.setAttribute('maxlength', 5000);
   textArea.setAttribute('cols', 80);
   textArea.setAttribute('rows', 5);
+  textArea.setAttribute('autofocus', true);
   textArea.classList.add('textarea');
   document.querySelector('body').appendChild(textArea);
 }
@@ -79,6 +80,10 @@ document.addEventListener('keydown', (event) => {
         backSpace();
       } else if (event.code === 'Delete') {
         deleteChar();
+      } else if (event.code === 'Enter') {
+        value.push('\n');
+      } else if (event.code === 'Tab') {
+        value.push('\t');
       } else {
         printChar(btn);
       }
