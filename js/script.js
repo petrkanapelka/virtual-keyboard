@@ -60,6 +60,7 @@ getKeys(rowThree);
 getKeys(rowFour);
 getKeys(rowFive);
 const value = [];
+let capslockIsOn = false;
 function backSpace() {
   value.pop();
 }
@@ -68,6 +69,30 @@ function deleteChar() {
 }
 function printChar(btn) {
   value.push(btn.key);
+}
+function switchUpperLower(buttons) {
+  if (capslockIsOn === false) {
+    buttons.forEach((btn) => {
+      if (btn.key.length === 1) {
+        // eslint-disable-next-line no-param-reassign
+        btn.textContent = btn.textContent.toUpperCase();
+        // eslint-disable-next-line no-param-reassign
+        btn.key = btn.key.toUpperCase();
+      }
+    });
+    capslockIsOn = true;
+  } else {
+    buttons.forEach((btn) => {
+      if (btn.key.length === 1) {
+        // eslint-disable-next-line no-param-reassign
+        btn.textContent = btn.textContent.toLowerCase();
+        // eslint-disable-next-line no-param-reassign
+        btn.key = btn.key.toLowerCase();
+      }
+    });
+    capslockIsOn = false;
+  }
+  return capslockIsOn;
 }
 document.addEventListener('keydown', (event) => {
   event.preventDefault();
@@ -84,6 +109,8 @@ document.addEventListener('keydown', (event) => {
         value.push('\n');
       } else if (event.code === 'Tab') {
         value.push('\t');
+      } else if (event.code === 'CapsLock') {
+        switchUpperLower(buttons);
       } else {
         printChar(btn);
       }
