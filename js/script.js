@@ -9,6 +9,10 @@ function createTextarea() {
   document.querySelector('body').appendChild(textArea);
 }
 createTextarea();
+const textarea = document.querySelector('textarea');
+textarea.addEventListener('blur', () => {
+  textarea.focus();
+});
 
 function createKeyBoard() {
   const keyBoard = document.createElement('div');
@@ -65,7 +69,7 @@ function backSpace() {
   value.pop();
 }
 function deleteChar() {
-  value.splice(value.length - 1, 1);
+  value.splice(0, 1);
 }
 function printChar(btn) {
   value.push(btn.key);
@@ -96,7 +100,7 @@ function switchUpperLower(buttons) {
 }
 document.addEventListener('keydown', (event) => {
   event.preventDefault();
-  const textarea = document.querySelector('textarea');
+  textarea.setAttribute('autofocus', true);
   const buttons = document.querySelectorAll('.key');
   buttons.forEach((btn) => {
     if (event.code === btn.code) {
@@ -118,6 +122,35 @@ document.addEventListener('keydown', (event) => {
       setTimeout(() => {
         btn.classList.remove('active');
       }, 200);
+    }
+    return value;
+  });
+});
+document.addEventListener('click', (event) => {
+  event.preventDefault();
+  textarea.setAttribute('autofocus', true);
+  const buttons = document.querySelectorAll('.key');
+  buttons.forEach((btn) => {
+    const btnClick = event.composedPath().includes(btn);
+    if (btnClick) {
+      // btn.classList.add('active');
+      if (btn.code === 'Backspace') {
+        backSpace();
+      } else if (btn.code === 'Delete') {
+        deleteChar();
+      } else if (btn.code === 'Enter') {
+        value.push('\n');
+      } else if (btn.code === 'Tab') {
+        value.push('\t');
+      } else if (btn.code === 'CapsLock') {
+        switchUpperLower(buttons);
+      } else {
+        printChar(btn);
+      }
+      textarea.value = value.join('');
+      /* setTimeout(() => {
+        btn.classList.remove('active');
+      }, 200); */
     }
     return value;
   });
