@@ -68,9 +68,7 @@ let capslockIsOn = false;
 function backSpace() {
   value.pop();
 }
-function deleteChar() {
-  value.splice(0, 1);
-}
+
 function printChar(btn) {
   value.push(btn.key);
 }
@@ -98,6 +96,27 @@ function switchUpperLower(buttons) {
   }
   return capslockIsOn;
 }
+let caretpos;
+function getCaretPos(input) {
+  // Internet Explorer Caret Position (TextArea)
+  if (document.selection && document.selection.createRange) {
+    const range = document.selection.createRange();
+    const bookmark = range.getBookmark();
+    caretpos = bookmark.charCodeAt(2) - 2;
+  } else {
+  // Firefox Caret Position (TextArea)
+    // eslint-disable-next-line no-lonely-if
+    if (input.setSelectionRange) {
+      caretpos = input.selectionStart;
+    }
+  }
+  console.log(caretpos);
+}
+getCaretPos(textarea);
+function deleteChar() {
+  value.splice(caretpos, 1);
+}
+
 document.addEventListener('keydown', (event) => {
   event.preventDefault();
   textarea.setAttribute('autofocus', true);
@@ -119,6 +138,7 @@ document.addEventListener('keydown', (event) => {
         printChar(btn);
       }
       textarea.value = value.join('');
+      getCaretPos(textarea);
       setTimeout(() => {
         btn.classList.remove('active');
       }, 200);
@@ -127,6 +147,7 @@ document.addEventListener('keydown', (event) => {
   });
 });
 document.addEventListener('click', (event) => {
+  getCaretPos(textarea);
   event.preventDefault();
   textarea.setAttribute('autofocus', true);
   const buttons = document.querySelectorAll('.key');
@@ -148,6 +169,7 @@ document.addEventListener('click', (event) => {
         printChar(btn);
       }
       textarea.value = value.join('');
+      getCaretPos(textarea);
       /* setTimeout(() => {
         btn.classList.remove('active');
       }, 200); */
