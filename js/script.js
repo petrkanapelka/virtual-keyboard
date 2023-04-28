@@ -19,6 +19,8 @@ createKeyBoard();
 function createButton(btn) {
   const button = document.createElement('div');
   button.textContent = btn.key;
+  button.code = btn.code;
+  button.key = btn.key;
   button.classList.add('key');
   if (btn.key === 'Backspace' || btn.key === 'Tab' || btn.key === 'Delete' || btn.key === 'CapsLock' || btn.key === 'Enter' || btn.key === 'Ctrl' || btn.key === 'Alt' || btn.key === 'Win' || btn.keyCode === 16) {
     button.classList.add('key_black');
@@ -56,3 +58,35 @@ getKeys(rowTwo);
 getKeys(rowThree);
 getKeys(rowFour);
 getKeys(rowFive);
+const value = [];
+function backSpace() {
+  value.pop();
+}
+function deleteChar() {
+  value.splice(value.length - 1, 1);
+}
+function printChar(btn) {
+  value.push(btn.key);
+}
+document.addEventListener('keydown', (event) => {
+  event.preventDefault();
+  const textarea = document.querySelector('textarea');
+  const buttons = document.querySelectorAll('.key');
+  buttons.forEach((btn) => {
+    if (event.code === btn.code) {
+      btn.classList.add('active');
+      if (event.code === 'Backspace') {
+        backSpace();
+      } else if (event.code === 'Delete') {
+        deleteChar();
+      } else {
+        printChar(btn);
+      }
+      textarea.value = value.join('');
+      setTimeout(() => {
+        btn.classList.remove('active');
+      }, 200);
+    }
+    return value;
+  });
+});
