@@ -1,0 +1,110 @@
+[
+  {
+    "key": "Ctrl",
+    "keyCode": 17,
+    "which": 17,
+    "code": "ControlLeft",
+    "location": 1,
+    "altKey": false,
+    "ctrlKey": true,
+    "metaKey": false,
+    "shiftKey": false,
+    "repeat": false
+   },
+   {
+    "key": "Win",
+    "keyCode": 91,
+    "which": 91,
+    "code": "MetaLeft",
+    "location": 1,
+    "altKey": false,
+    "ctrlKey": false,
+    "metaKey": true,
+    "shiftKey": false,
+    "repeat": false
+   },
+   {
+    "key": "Alt",
+    "keyCode": 18,
+    "which": 18,
+    "code": "AltLeft",
+    "location": 1,
+    "altKey": true,
+    "ctrlKey": false,
+    "metaKey": false,
+    "shiftKey": false,
+    "repeat": false
+   },
+   {
+    "key": " ",
+    "keyCode": 32,
+    "which": 32,
+    "code": "Space",
+    "location": 0,
+    "altKey": false,
+    "ctrlKey": false,
+    "metaKey": false,
+    "shiftKey": false,
+    "repeat": false
+   },
+   {
+    "key": "Alt",
+    "keyCode": 18,
+    "which": 18,
+    "code": "AltRight",
+    "location": 2,
+    "altKey": true,
+    "ctrlKey": false,
+    "metaKey": false,
+    "shiftKey": false,
+    "repeat": false
+   },
+   {
+    "key": "Ctrl",
+    "keyCode": 17,
+    "which": 17,
+    "code": "ControlRight",
+    "location": 2,
+    "altKey": false,
+    "ctrlKey": true,
+    "metaKey": false,
+    "shiftKey": false,
+    "repeat": false
+   },
+   {
+    "key": "◀",
+    "keyCode": 37,
+    "which": 37,
+    "code": "ArrowLeft",
+    "location": 0,
+    "altKey": false,
+    "ctrlKey": false,
+    "metaKey": false,
+    "shiftKey": false,
+    "repeat": false
+   },
+   {
+    "key": "▼",
+    "keyCode": 40,
+    "which": 40,
+    "code": "ArrowDown",
+    "location": 0,
+    "altKey": false,
+    "ctrlKey": false,
+    "metaKey": false,
+    "shiftKey": false,
+    "repeat": false
+   },
+   {
+    "key": "►",
+    "keyCode": 39,
+    "which": 39,
+    "code": "ArrowRight",
+    "location": 0,
+    "altKey": false,
+    "ctrlKey": false,
+    "metaKey": false,
+    "shiftKey": false,
+    "repeat": false
+   }
+]

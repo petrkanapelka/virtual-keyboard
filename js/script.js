@@ -20,14 +20,27 @@ function createButton(btn) {
   const button = document.createElement('div');
   button.textContent = btn.key;
   button.classList.add('key');
-  if (btn.key === 'Backspace' || btn.key === 'Tab' || btn.key === 'Delete') {
+  if (btn.key === 'Backspace' || btn.key === 'Tab' || btn.key === 'Delete' || btn.key === 'CapsLock' || btn.key === 'Enter' || btn.key === 'Ctrl' || btn.key === 'Alt' || btn.key === 'Win' || btn.keyCode === 16) {
     button.classList.add('key_black');
+  }
+  if (btn.code === 'ArrowUp' || btn.code === 'ArrowDown' || btn.code === 'ArrowLeft' || btn.code === 'ArrowRight') {
+    button.classList.add('key_black');
+  }
+  if (btn.code === 'Space') {
+    button.classList.add('space');
+  }
+  if (btn.code === 'ShiftLeft') {
+    button.classList.add('shift');
   }
   const newLine = document.querySelectorAll('.row_new');
   newLine[newLine.length - 1].appendChild(button);
 }
 const rowOne = 'json/row1.json';
 const rowTwo = 'json/row2.json';
+const rowThree = 'json/row3.json';
+const rowFour = 'json/row4.json';
+const rowFive = 'json/row5.json';
+
 async function getKeys(row) {
   const res = await fetch(row);
   const data = await res.json();
@@ -40,3 +53,6 @@ async function getKeys(row) {
 }
 getKeys(rowOne);
 getKeys(rowTwo);
+getKeys(rowThree);
+getKeys(rowFour);
+getKeys(rowFive);
