@@ -9,6 +9,7 @@ function createTextarea() {
   document.querySelector('body').appendChild(textArea);
 }
 createTextarea();
+
 const textarea = document.querySelector('textarea');
 textarea.addEventListener('blur', () => {
   textarea.focus();
@@ -27,10 +28,10 @@ function createButton(btn) {
   button.code = btn.code;
   button.key = btn.key;
   button.classList.add('key');
-  if (btn.key === 'Backspace' || btn.key === 'Tab' || btn.key === 'Delete' || btn.key === 'CapsLock' || btn.key === 'Enter' || btn.key === 'Ctrl' || btn.key === 'Alt' || btn.key === 'Win' || btn.keyCode === 16) {
+  if (btn.key.length !== 1 || btn.keyCode === 16) {
     button.classList.add('key_black');
   }
-  if (btn.code === 'ArrowUp' || btn.code === 'ArrowDown' || btn.code === 'ArrowLeft' || btn.code === 'ArrowRight') {
+  if (btn.keyCode <= 40 && btn.keyCode >= 37) {
     button.classList.add('key_black');
   }
   if (btn.code === 'Space') {
@@ -42,10 +43,14 @@ function createButton(btn) {
   const newLine = document.querySelectorAll('.row_new');
   newLine[newLine.length - 1].appendChild(button);
 }
+
 const rowOne = 'json/row1.json';
 const rowTwo = 'json/row2.json';
+const rowTwoRu = 'json/row2ru.json';
 const rowThree = 'json/row3.json';
+const rowThreeRU = 'json/row3ru.json';
 const rowFour = 'json/row4.json';
+const rowFourRu = 'json/row4ru.json';
 const rowFive = 'json/row5.json';
 
 async function getKeys(row) {
@@ -58,18 +63,40 @@ async function getKeys(row) {
     createButton(button);
   });
 }
-getKeys(rowOne);
-getKeys(rowTwo);
-getKeys(rowThree);
-getKeys(rowFour);
-getKeys(rowFive);
+
+function setEngKeyboard() {
+  getKeys(rowOne);
+  getKeys(rowTwo);
+  getKeys(rowThree);
+  getKeys(rowFour);
+  getKeys(rowFive);
+}
+function setRuKeyboard() {
+  getKeys(rowOne);
+  getKeys(rowTwoRu);
+  getKeys(rowThreeRU);
+  getKeys(rowFourRu);
+  getKeys(rowFive);
+}
+setEngKeyboard();
 
 const value = [];
 let capslockIsOn = false;
+let caretPositon;
 
-/* function printChar(btn) {
-  value.push(btn.key);
-} */
+function changeText() {
+  textarea.value = value.join('');
+  textarea.selectionStart = caretPositon;
+  textarea.selectionEnd = textarea.selectionStart;
+}
+function getCaretPositon(input) {
+  if (input.setSelectionRange) {
+    caretPositon = input.selectionStart;
+  }
+  return caretPositon;
+}
+getCaretPositon(textarea);
+
 function switchUpperLower(buttons) {
   if (capslockIsOn === false) {
     buttons.forEach((btn) => {
@@ -94,21 +121,22 @@ function switchUpperLower(buttons) {
   }
   return capslockIsOn;
 }
-let caretpos;
-function getCaretPos(input) {
-  if (input.setSelectionRange) {
-    caretpos = input.selectionStart;
-  }
-  console.log('getPos', caretpos);
-  return caretpos;
+
+function printChar(char) {
+  value.splice(caretPositon, 0, char);
+  caretPositon += 1;
+  changeText();
 }
-getCaretPos(textarea);
 
 function deleteChar() {
-  value.splice(caretpos, 1);
+  value.splice(caretPositon, 1);
+  changeText();
 }
+
 function backSpace() {
-  value.splice(caretpos - 1, 1);
+  value.splice(caretPositon - 1, 1);
+  caretPositon -= 1;
+  changeText();
 }
 document.addEventListener('keydown', (event) => {
   event.preventDefault();
@@ -118,55 +146,21 @@ document.addEventListener('keydown', (event) => {
     if (event.code === btn.code) {
       btn.classList.add('active');
       if (event.code === 'Backspace') {
-        if (caretpos !== 0) {
+        if (caretPositon !== 0) {
           backSpace();
-          console.log('before join', caretpos);
-          textarea.value = value.join('');
-          console.log('after join', caretpos);
-          caretpos -= 1;
         }
-        textarea.selectionStart = caretpos;
-        textarea.selectionEnd = textarea.selectionStart;
       } else if (event.code === 'Delete') {
         deleteChar();
-        console.log('before join', caretpos);
-        textarea.value = value.join('');
-        console.log('after join', caretpos);
-        /* caretpos -= 1; */
-        textarea.selectionStart = caretpos;
-        textarea.selectionEnd = textarea.selectionStart;
       } else if (event.code === 'Enter') {
-        value.splice(caretpos, 0, '\n');
-        console.log('before join', caretpos);
-        textarea.value = value.join('');
-        /* getCaretPos(textarea); */
-        caretpos += 1;
-        console.log('after join', caretpos);
-        textarea.selectionStart = caretpos;
-        textarea.selectionEnd = textarea.selectionStart;
-        /* value.push('\n'); */
+        printChar('\n');
       } else if (event.code === 'Tab') {
-        /* value.push('\t'); */
-        value.splice(caretpos, 0, '\t');
-        console.log('before join', caretpos);
-        textarea.value = value.join('');
-        /* getCaretPos(textarea); */
-        caretpos += 1;
-        console.log('after join', caretpos);
-        textarea.selectionStart = caretpos;
-        textarea.selectionEnd = textarea.selectionStart;
+        printChar('\t');
       } else if (event.code === 'CapsLock') {
         switchUpperLower(buttons);
+      } else if (event.code === 'ShiftLeft') {
+        setRuKeyboard();
       } else {
-        /* printChar(btn); */
-        value.splice(caretpos, 0, btn.key);
-        console.log('before join', caretpos);
-        textarea.value = value.join('');
-        /* getCaretPos(textarea); */
-        caretpos += 1;
-        console.log('after join', caretpos);
-        textarea.selectionStart = caretpos;
-        textarea.selectionEnd = textarea.selectionStart;
+        printChar(btn.key);
       }
       setTimeout(() => {
         btn.classList.remove('active');
@@ -176,7 +170,7 @@ document.addEventListener('keydown', (event) => {
   });
 });
 document.addEventListener('click', (event) => {
-  getCaretPos(textarea);
+  getCaretPositon(textarea);
   event.preventDefault();
   textarea.setAttribute('autofocus', true);
   const buttons = document.querySelectorAll('.key');
@@ -184,58 +178,22 @@ document.addEventListener('click', (event) => {
     const btnClick = event.composedPath().includes(btn);
     if (btnClick) {
       if (btn.code === 'Backspace') {
-        if (caretpos !== 0) {
+        if (caretPositon !== 0) {
           backSpace();
-          console.log('before join', caretpos);
-          textarea.value = value.join('');
-          console.log('after join', caretpos);
-          caretpos -= 1;
         }
-        textarea.selectionStart = caretpos;
-        textarea.selectionEnd = textarea.selectionStart;
       } else if (btn.code === 'Delete') {
         deleteChar();
-        console.log('before join', caretpos);
-        textarea.value = value.join('');
-        console.log('after join', caretpos);
-        /* caretpos -= 1; */
-        textarea.selectionStart = caretpos;
-        textarea.selectionEnd = textarea.selectionStart;
       } else if (btn.code === 'Enter') {
-        value.splice(caretpos, 0, '\n');
-        console.log('before join', caretpos);
-        textarea.value = value.join('');
-        /* getCaretPos(textarea); */
-        caretpos += 1;
-        console.log('after join', caretpos);
-        textarea.selectionStart = caretpos;
-        textarea.selectionEnd = textarea.selectionStart;
-        /* value.push('\n'); */
+        printChar('\n');
       } else if (btn.code === 'Tab') {
-        /* value.push('\t'); */
-        value.splice(caretpos, 0, '\t');
-        console.log('before join', caretpos);
-        textarea.value = value.join('');
-        /* getCaretPos(textarea); */
-        caretpos += 1;
-        console.log('after join', caretpos);
-        textarea.selectionStart = caretpos;
-        textarea.selectionEnd = textarea.selectionStart;
+        printChar('\t');
       } else if (btn.code === 'CapsLock') {
         switchUpperLower(buttons);
+      } else if (btn.keyCode === 16) {
+        setRuKeyboard();
       } else {
-        /* printChar(btn); */
-        value.splice(caretpos, 0, btn.key);
-        console.log('before join', caretpos);
-        textarea.value = value.join('');
-        /* getCaretPos(textarea); */
-        caretpos += 1;
-        console.log('after join', caretpos);
-        textarea.selectionStart = caretpos;
-        textarea.selectionEnd = textarea.selectionStart;
+        printChar(btn.key);
       }
-      /* textarea.value = value.join('');
-      getCaretPos(textarea); */
     }
     return value;
   });
