@@ -63,15 +63,13 @@ getKeys(rowTwo);
 getKeys(rowThree);
 getKeys(rowFour);
 getKeys(rowFive);
+
 const value = [];
 let capslockIsOn = false;
-function backSpace() {
-  value.pop();
-}
 
-function printChar(btn) {
+/* function printChar(btn) {
   value.push(btn.key);
-}
+} */
 function switchUpperLower(buttons) {
   if (capslockIsOn === false) {
     buttons.forEach((btn) => {
@@ -98,25 +96,20 @@ function switchUpperLower(buttons) {
 }
 let caretpos;
 function getCaretPos(input) {
-  // Internet Explorer Caret Position (TextArea)
-  if (document.selection && document.selection.createRange) {
-    const range = document.selection.createRange();
-    const bookmark = range.getBookmark();
-    caretpos = bookmark.charCodeAt(2) - 2;
-  } else {
-  // Firefox Caret Position (TextArea)
-    // eslint-disable-next-line no-lonely-if
-    if (input.setSelectionRange) {
-      caretpos = input.selectionStart;
-    }
+  if (input.setSelectionRange) {
+    caretpos = input.selectionStart;
   }
-  console.log(caretpos);
+  console.log('getPos', caretpos);
+  return caretpos;
 }
 getCaretPos(textarea);
+
 function deleteChar() {
   value.splice(caretpos, 1);
 }
-
+function backSpace() {
+  value.splice(caretpos - 1, 1);
+}
 document.addEventListener('keydown', (event) => {
   event.preventDefault();
   textarea.setAttribute('autofocus', true);
@@ -125,20 +118,56 @@ document.addEventListener('keydown', (event) => {
     if (event.code === btn.code) {
       btn.classList.add('active');
       if (event.code === 'Backspace') {
-        backSpace();
+        if (caretpos !== 0) {
+          backSpace();
+          console.log('before join', caretpos);
+          textarea.value = value.join('');
+          console.log('after join', caretpos);
+          caretpos -= 1;
+        }
+        textarea.selectionStart = caretpos;
+        textarea.selectionEnd = textarea.selectionStart;
       } else if (event.code === 'Delete') {
         deleteChar();
+        console.log('before join', caretpos);
+        textarea.value = value.join('');
+        console.log('after join', caretpos);
+        /* caretpos -= 1; */
+        textarea.selectionStart = caretpos;
+        textarea.selectionEnd = textarea.selectionStart;
       } else if (event.code === 'Enter') {
-        value.push('\n');
+        value.splice(caretpos, 0, '\n');
+        console.log('before join', caretpos);
+        textarea.value = value.join('');
+        /* getCaretPos(textarea); */
+        caretpos += 1;
+        console.log('after join', caretpos);
+        textarea.selectionStart = caretpos;
+        textarea.selectionEnd = textarea.selectionStart;
+        /* value.push('\n'); */
       } else if (event.code === 'Tab') {
-        value.push('\t');
+        /* value.push('\t'); */
+        value.splice(caretpos, 0, '\t');
+        console.log('before join', caretpos);
+        textarea.value = value.join('');
+        /* getCaretPos(textarea); */
+        caretpos += 1;
+        console.log('after join', caretpos);
+        textarea.selectionStart = caretpos;
+        textarea.selectionEnd = textarea.selectionStart;
       } else if (event.code === 'CapsLock') {
         switchUpperLower(buttons);
       } else {
-        printChar(btn);
+        /* printChar(btn); */
+        value.splice(caretpos, 0, btn.key);
+        console.log('before join', caretpos);
+        textarea.value = value.join('');
+        /* getCaretPos(textarea); */
+        caretpos += 1;
+        console.log('after join', caretpos);
+        textarea.selectionStart = caretpos;
+        textarea.selectionEnd = textarea.selectionStart;
       }
-      textarea.value = value.join('');
-      getCaretPos(textarea);
       setTimeout(() => {
         btn.classList.remove('active');
       }, 200);
@@ -154,25 +183,59 @@ document.addEventListener('click', (event) => {
   buttons.forEach((btn) => {
     const btnClick = event.composedPath().includes(btn);
     if (btnClick) {
-      // btn.classList.add('active');
       if (btn.code === 'Backspace') {
-        backSpace();
+        if (caretpos !== 0) {
+          backSpace();
+          console.log('before join', caretpos);
+          textarea.value = value.join('');
+          console.log('after join', caretpos);
+          caretpos -= 1;
+        }
+        textarea.selectionStart = caretpos;
+        textarea.selectionEnd = textarea.selectionStart;
       } else if (btn.code === 'Delete') {
         deleteChar();
+        console.log('before join', caretpos);
+        textarea.value = value.join('');
+        console.log('after join', caretpos);
+        /* caretpos -= 1; */
+        textarea.selectionStart = caretpos;
+        textarea.selectionEnd = textarea.selectionStart;
       } else if (btn.code === 'Enter') {
-        value.push('\n');
+        value.splice(caretpos, 0, '\n');
+        console.log('before join', caretpos);
+        textarea.value = value.join('');
+        /* getCaretPos(textarea); */
+        caretpos += 1;
+        console.log('after join', caretpos);
+        textarea.selectionStart = caretpos;
+        textarea.selectionEnd = textarea.selectionStart;
+        /* value.push('\n'); */
       } else if (btn.code === 'Tab') {
-        value.push('\t');
+        /* value.push('\t'); */
+        value.splice(caretpos, 0, '\t');
+        console.log('before join', caretpos);
+        textarea.value = value.join('');
+        /* getCaretPos(textarea); */
+        caretpos += 1;
+        console.log('after join', caretpos);
+        textarea.selectionStart = caretpos;
+        textarea.selectionEnd = textarea.selectionStart;
       } else if (btn.code === 'CapsLock') {
         switchUpperLower(buttons);
       } else {
-        printChar(btn);
+        /* printChar(btn); */
+        value.splice(caretpos, 0, btn.key);
+        console.log('before join', caretpos);
+        textarea.value = value.join('');
+        /* getCaretPos(textarea); */
+        caretpos += 1;
+        console.log('after join', caretpos);
+        textarea.selectionStart = caretpos;
+        textarea.selectionEnd = textarea.selectionStart;
       }
-      textarea.value = value.join('');
-      getCaretPos(textarea);
-      /* setTimeout(() => {
-        btn.classList.remove('active');
-      }, 200); */
+      /* textarea.value = value.join('');
+      getCaretPos(textarea); */
     }
     return value;
   });
