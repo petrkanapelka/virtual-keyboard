@@ -108,6 +108,18 @@
     "repeat": false
    },
    {
+    "key": "щ",
+    "keyCode": 79,
+    "which": 79,
+    "code": "KeyO",
+    "location": 0,
+    "altKey": false,
+    "ctrlKey": false,
+    "metaKey": false,
+    "shiftKey": false,
+    "repeat": false
+   },
+   {
     "key": "з",
     "keyCode": 80,
     "which": 80,
@@ -148,6 +160,18 @@
     "keyCode": 220,
     "which": 220,
     "code": "Backslash",
+    "location": 0,
+    "altKey": false,
+    "ctrlKey": false,
+    "metaKey": false,
+    "shiftKey": false,
+    "repeat": false
+   },
+   {
+    "key": "Delete",
+    "keyCode": 46,
+    "which": 46,
+    "code": "Delete",
     "location": 0,
     "altKey": false,
     "ctrlKey": false,
