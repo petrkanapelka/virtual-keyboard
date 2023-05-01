@@ -39,6 +39,7 @@ function createButton(btn) {
   }
   if (btn.keyCode <= 40 && btn.keyCode >= 37) {
     button.classList.add('key_black');
+    button.classList.add('key-simple');
   }
   if (btn.code === 'Space') {
     button.classList.add('space');
@@ -46,6 +47,10 @@ function createButton(btn) {
   if (btn.code === 'ShiftLeft') {
     button.classList.add('shift');
   }
+  if (btn.key.length === 1 && btn.code !== 'Space') {
+    button.classList.add('key-simple');
+  }
+  button.classList.add(btn.code.toLowerCase());
   const newLine = document.querySelectorAll('.row_new');
   newLine[newLine.length - 1].appendChild(button);
 }
@@ -101,6 +106,7 @@ function getCaretPositon(input) {
 getCaretPositon(textarea);
 
 function switchUpperLower(buttons) {
+  console.log('EXECUTED');
   if (capslockIsOn === false) {
     buttons.forEach((btn) => {
       if (btn.key.length === 1) {
@@ -141,8 +147,8 @@ function backSpace() {
   caretPositon -= 1;
   changeText();
 }
-let shiftPress = false;
-let press = 0;
+let ctrlPress = false;
+let pressShift = 0;
 document.addEventListener('keydown', (event) => {
   event.preventDefault();
   textarea.setAttribute('autofocus', true);
@@ -163,36 +169,49 @@ document.addEventListener('keydown', (event) => {
       } else if (event.code === 'CapsLock') {
         switchUpperLower(buttons);
       } else if (event.code === 'ShiftLeft' || event.code === 'ShiftRight') {
-        shiftPress = true;
         if (english) {
-          while (press < 1) {
+          while (pressShift < 1) {
             setKeyboard(engShiftKeyboard);
             setTimeout(() => {
               switchUpperLower(buttons);
             }, 60);
-            press += 1;
+            pressShift += 1;
           }
         } else {
-          while (press < 1) {
+          while (pressShift < 1) {
             setKeyboard(rusShiftKeyboard);
             setTimeout(() => {
               switchUpperLower(buttons);
             }, 60);
-            press += 1;
+            pressShift += 1;
           }
         }
       } else if (event.code === 'AltLeft' || event.code === 'AltRight') {
-        if (shiftPress) {
-          if (english) {
+        if (ctrlPress) {
+          if (english && capslockIsOn === true) {
+            setKeyboard(rusKeyboard);
+            setTimeout(() => {
+              switchUpperLower(buttons);
+              console.log('caps-on');
+            }, 100);
+            english = false;
+          } else if (english && capslockIsOn !== true) {
             setKeyboard(rusKeyboard);
             english = false;
+          } else if (!english && capslockIsOn === true) {
+            setKeyboard(engKeyboard);
+            setTimeout(() => {
+              switchUpperLower(buttons);
+              console.log('caps-on');
+            }, 100);
+            english = true;
           } else {
             setKeyboard(engKeyboard);
             english = true;
           }
         }
       } else if (event.code === 'ControlLeft' || event.code === 'ControlRight') {
-        console.log('ctrl');
+        ctrlPress = true;
       } else {
         printChar(btn.key);
       }
@@ -213,9 +232,12 @@ document.addEventListener('keyup', (event) => {
         } else {
           setKeyboard(rusKeyboard);
         }
-        switchUpperLower(buttons);
-        shiftPress = false;
-        press = 0;
+        setTimeout(() => {
+          switchUpperLower(buttons);
+        }, 60);
+        pressShift = 0;
+      } else if (event.code === 'ControlLeft' || event.code === 'ControlRight') {
+        ctrlPress = false;
       }
     }
   });
