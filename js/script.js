@@ -351,6 +351,15 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  const note1 = document.createElement('div');
+  note1.classList.add('notes');
+  note1.textContent = 'Клавиатура создана в операционной системе Windows';
+  document.querySelector('body').appendChild(note1);
+  const note2 = document.createElement('div');
+  note2.classList.add('notes');
+  note2.textContent = 'Для переключения языка комбинация: ctrl + alt';
+  document.querySelector('body').appendChild(note2);
+
   function setLocalStorage() {
     localStorage.setItem('language', language);
   }
