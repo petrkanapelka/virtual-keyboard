@@ -29,7 +29,7 @@ function createButton(btn) {
     newRow.classList.add('row_new');
     document.querySelector('.keyboard').appendChild(newRow);
   }
-  const button = document.createElement('div');
+  const button = document.createElement('button');
   button.textContent = btn.key;
   button.code = btn.code;
   button.key = btn.key;
@@ -52,6 +52,8 @@ function createButton(btn) {
 
 const engKeyboard = 'json/english-keyboard.json';
 const rusKeyboard = 'json/russian-keyboard.json';
+const engShiftKeyboard = 'json/shift-keybord-en.json';
+const rusShiftKeyboard = 'json/shift-keyboard-ru.json';
 
 async function getKeys(row) {
   const res = await fetch(row);
@@ -66,7 +68,7 @@ function setEngKeyboard() {
   // getKeys(rusKeyboard);
 }
 
-async function setLangKeyboard(keyboard) {
+async function setKeyboard(keyboard) {
   const keys = document.querySelectorAll('.key');
   const res = await fetch(keyboard);
   const data = await res.json();
@@ -140,6 +142,7 @@ function backSpace() {
   changeText();
 }
 let shiftPress = false;
+let press = 0;
 document.addEventListener('keydown', (event) => {
   event.preventDefault();
   textarea.setAttribute('autofocus', true);
@@ -161,14 +164,30 @@ document.addEventListener('keydown', (event) => {
         switchUpperLower(buttons);
       } else if (event.code === 'ShiftLeft' || event.code === 'ShiftRight') {
         shiftPress = true;
-        switchUpperLower(buttons);
+        if (english) {
+          while (press < 1) {
+            setKeyboard(engShiftKeyboard);
+            setTimeout(() => {
+              switchUpperLower(buttons);
+            }, 60);
+            press += 1;
+          }
+        } else {
+          while (press < 1) {
+            setKeyboard(rusShiftKeyboard);
+            setTimeout(() => {
+              switchUpperLower(buttons);
+            }, 60);
+            press += 1;
+          }
+        }
       } else if (event.code === 'AltLeft' || event.code === 'AltRight') {
         if (shiftPress) {
           if (english) {
-            setLangKeyboard(rusKeyboard);
+            setKeyboard(rusKeyboard);
             english = false;
           } else {
-            setLangKeyboard(engKeyboard);
+            setKeyboard(engKeyboard);
             english = true;
           }
         }
@@ -189,8 +208,14 @@ document.addEventListener('keyup', (event) => {
     if (event.code === btn.code) {
       btn.classList.remove('active');
       if (event.code === 'ShiftLeft' || event.code === 'ShiftRight') {
+        if (english) {
+          setKeyboard(engKeyboard);
+        } else {
+          setKeyboard(rusKeyboard);
+        }
         switchUpperLower(buttons);
         shiftPress = false;
+        press = 0;
       }
     }
   });
@@ -217,7 +242,7 @@ document.addEventListener('click', (event) => {
       } else if (btn.code === 'CapsLock') {
         switchUpperLower(buttons);
       } else if (btn.keyCode === 16) {
-        setLangKeyboard();
+        setKeyboard();
       } else {
         printChar(btn.key);
       }
