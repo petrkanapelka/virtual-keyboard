@@ -23,6 +23,12 @@ function createKeyBoard() {
 createKeyBoard();
 
 function createButton(btn) {
+  const keyboard = document.querySelector('.keyboard');
+  if (keyboard.childNodes.length === 0 || btn.code === 'Tab' || btn.code === 'CapsLock' || btn.code === 'ShiftLeft' || btn.code === 'ControlLeft') {
+    const newRow = document.createElement('div');
+    newRow.classList.add('row_new');
+    document.querySelector('.keyboard').appendChild(newRow);
+  }
   const button = document.createElement('div');
   button.textContent = btn.key;
   button.code = btn.code;
@@ -44,39 +50,28 @@ function createButton(btn) {
   newLine[newLine.length - 1].appendChild(button);
 }
 
-const rowOne = 'json/row1.json';
-const rowTwo = 'json/row2.json';
-const rowTwoRu = 'json/row2ru.json';
-const rowThree = 'json/row3.json';
-const rowThreeRU = 'json/row3ru.json';
-const rowFour = 'json/row4.json';
-const rowFourRu = 'json/row4ru.json';
-const rowFive = 'json/row5.json';
+const engKeyboard = 'json/english-keyboard.json';
+const rusKeyboard = 'json/russian-keyboard.json';
 
 async function getKeys(row) {
   const res = await fetch(row);
   const data = await res.json();
-  const newRow = document.createElement('div');
-  newRow.classList.add('row_new');
-  document.querySelector('.keyboard').appendChild(newRow);
   data.forEach((button) => {
     createButton(button);
   });
 }
 
 function setEngKeyboard() {
-  getKeys(rowOne);
-  getKeys(rowTwo);
-  getKeys(rowThree);
-  getKeys(rowFour);
-  getKeys(rowFive);
+  getKeys(engKeyboard);
+  // getKeys(rusKeyboard);
 }
-async function setLangKeyboard(index, rowRu) {
-  const rows = document.querySelectorAll('.row_new');
-  const res = await fetch(rowRu);
+
+async function setLangKeyboard(keyboard) {
+  const keys = document.querySelectorAll('.key');
+  const res = await fetch(keyboard);
   const data = await res.json();
-  const ruLang = Array.from(rows[index].children);
-  ruLang.forEach((btn, indx) => {
+  const buttons = Array.from(keys);
+  buttons.forEach((btn, indx) => {
     // eslint-disable-next-line no-param-reassign
     btn.textContent = data[indx].key;
     // eslint-disable-next-line no-param-reassign
@@ -170,14 +165,10 @@ document.addEventListener('keydown', (event) => {
       } else if (event.code === 'AltLeft' || event.code === 'AltRight') {
         if (shiftPress) {
           if (english) {
-            setLangKeyboard(1, rowTwoRu);
-            setLangKeyboard(2, rowThreeRU);
-            setLangKeyboard(3, rowFourRu);
+            setLangKeyboard(rusKeyboard);
             english = false;
           } else {
-            setLangKeyboard(1, rowTwo);
-            setLangKeyboard(2, rowThree);
-            setLangKeyboard(3, rowFour);
+            setLangKeyboard(engKeyboard);
             english = true;
           }
         }
