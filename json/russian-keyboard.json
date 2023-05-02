@@ -1,0 +1,386 @@
+[
+  {
+    "key": "ё",
+    "keyCode": 192,
+    "which": 192,
+    "code": "Backquote"
+    },
+    {
+    "key": "1",
+    "keyCode": 49,
+    "which": 49,
+    "code": "Digit1"
+    },
+    {
+    "key": "2",
+    "keyCode": 50,
+    "which": 50,
+    "code": "Digit2"
+    },
+    {
+    "key": "3",
+    "keyCode": 51,
+    "which": 51,
+    "code": "Digit3"
+    },
+    {
+    "key": "4",
+    "keyCode": 52,
+    "which": 52,
+    "code": "Digit4"
+    },
+    {
+    "key": "5",
+    "keyCode": 53,
+    "which": 53,
+    "code": "Digit5"
+    },
+    {
+    "key": "6",
+    "keyCode": 54,
+    "which": 54,
+    "code": "Digit6"
+    },
+    {
+    "key": "7",
+    "keyCode": 55,
+    "which": 55,
+    "code": "Digit7"
+    },
+    {
+    "key": "8",
+    "keyCode": 56,
+    "which": 56,
+    "code": "Digit8"
+    },
+    {
+    "key": "9",
+    "keyCode": 57,
+    "which": 57,
+    "code": "Digit9"
+    },
+    {
+    "key": "0",
+    "keyCode": 48,
+    "which": 48,
+    "code": "Digit0"
+    },
+    {
+    "key": "-",
+    "keyCode": 189,
+    "which": 189,
+    "code": "Minus"
+    },
+    {
+    "key": "=",
+    "keyCode": 187,
+    "which": 187,
+    "code": "Equal"
+    },
+    {
+    "key": "Backspace",
+    "keyCode": 8,
+    "which": 8,
+    "code": "Backspace"
+    },
+    {
+      "key": "Tab",
+      "keyCode": 9,
+      "which": 9,
+      "code": "Tab"
+     },
+     {
+      "key": "й",
+      "keyCode": 81,
+      "which": 81,
+      "code": "KeyQ"
+     },
+     {
+      "key": "ц",
+      "keyCode": 87,
+      "which": 87,
+      "code": "KeyW"
+     },
+     {
+      "key": "у",
+      "keyCode": 69,
+      "which": 69,
+      "code": "KeyE"
+     },
+     {
+      "key": "к",
+      "keyCode": 82,
+      "which": 82,
+      "code": "KeyR"
+     },
+     {
+      "key": "е",
+      "keyCode": 84,
+      "which": 84,
+      "code": "KeyT"
+     },
+     {
+      "key": "н",
+      "keyCode": 89,
+      "which": 89,
+      "code": "KeyY"
+     },
+     {
+      "key": "г",
+      "keyCode": 85,
+      "which": 85,
+      "code": "KeyU"
+     },
+     {
+      "key": "ш",
+      "keyCode": 73,
+      "which": 73,
+      "code": "KeyI"
+     },
+     {
+      "key": "щ",
+      "keyCode": 79,
+      "which": 79,
+      "code": "KeyO"
+     },
+     {
+      "key": "з",
+      "keyCode": 80,
+      "which": 80,
+      "code": "KeyP"
+     },
+     {
+      "key": "х",
+      "keyCode": 219,
+      "which": 219,
+      "code": "BracketLeft"
+     },
+     {
+      "key": "ъ",
+      "keyCode": 221,
+      "which": 221,
+      "code": "BracketRight"
+     },
+     {
+      "key": "\\",
+      "keyCode": 220,
+      "which": 220,
+      "code": "Backslash"
+     },
+     {
+      "key": "Delete",
+      "keyCode": 46,
+      "which": 46,
+      "code": "Delete"
+     },
+     {
+      "key": "CapsLock",
+      "keyCode": 20,
+      "which": 20,
+      "code": "CapsLock"
+     },
+     {
+      "key": "ф",
+      "keyCode": 65,
+      "which": 65,
+      "code": "KeyA"
+     },
+     {
+      "key": "ы",
+      "keyCode": 83,
+      "which": 83,
+      "code": "KeyS"
+     },
+     {
+      "key": "в",
+      "keyCode": 68,
+      "which": 68,
+      "code": "KeyD"
+     },
+     {
+      "key": "а",
+      "keyCode": 70,
+      "which": 70,
+      "code": "KeyF"
+     },
+     {
+      "key": "п",
+      "keyCode": 71,
+      "which": 71,
+      "code": "KeyG"
+     },
+     {
+      "key": "р",
+      "keyCode": 72,
+      "which": 72,
+      "code": "KeyH"
+     },
+     {
+      "key": "о",
+      "keyCode": 74,
+      "which": 74,
+      "code": "KeyJ"
+     },
+     {
+      "key": "л",
+      "keyCode": 75,
+      "which": 75,
+      "code": "KeyK"
+     },
+     {
+      "key": "д",
+      "keyCode": 76,
+      "which": 76,
+      "code": "KeyL"
+     },
+     {
+      "key": "ж",
+      "keyCode": 186,
+      "which": 186,
+      "code": "Semicolon"
+     },
+     {
+      "key": "э",
+      "keyCode": 222,
+      "which": 222,
+      "code": "Quote"
+     },
+     {
+      "key": "Enter",
+      "keyCode": 13,
+      "which": 13,
+      "code": "Enter"
+     },
+     {
+      "key": "Shift",
+      "keyCode": 16,
+      "which": 16,
+      "code": "ShiftLeft"
+     },
+     {
+      "key": "я",
+      "keyCode": 90,
+      "which": 90,
+      "code": "KeyZ"
+     },
+     {
+      "key": "ч",
+      "keyCode": 88,
+      "which": 88,
+      "code": "KeyX"
+     },
+     {
+      "key": "с",
+      "keyCode": 67,
+      "which": 67,
+      "code": "KeyC"
+     },
+     {
+      "key": "м",
+      "keyCode": 86,
+      "which": 86,
+      "code": "KeyV"
+     },
+     {
+      "key": "и",
+      "keyCode": 66,
+      "which": 66,
+      "code": "KeyB"
+     },
+     {
+      "key": "т",
+      "keyCode": 78,
+      "which": 78,
+      "code": "KeyN"
+     },
+     {
+      "key": "ь",
+      "keyCode": 77,
+      "which": 77,
+      "code": "KeyM"
+     },
+     {
+      "key": "б",
+      "keyCode": 188,
+      "which": 188,
+      "code": "Comma"
+     },
+     {
+      "key": "ю",
+      "keyCode": 190,
+      "which": 190,
+      "code": "Period"
+     },
+     {
+      "key": ".",
+      "keyCode": 191,
+      "which": 191,
+      "code": "Slash"
+     },
+     {
+      "key": "▲",
+      "keyCode": 38,
+      "which": 38,
+      "code": "ArrowUp"
+     },
+     {
+      "key": "⇧",
+      "keyCode": 16,
+      "which": 16,
+      "code": "ShiftRight"
+     },
+     {
+      "key": "Ctrl",
+      "keyCode": 17,
+      "which": 17,
+      "code": "ControlLeft"
+     },
+     {
+      "key": "Win",
+      "keyCode": 91,
+      "which": 91,
+      "code": "MetaLeft"
+     },
+     {
+      "key": "Alt",
+      "keyCode": 18,
+      "which": 18,
+      "code": "AltLeft"
+     },
+     {
+      "key": " ",
+      "keyCode": 32,
+      "which": 32,
+      "code": "Space"
+     },
+     {
+      "key": "Alt",
+      "keyCode": 18,
+      "which": 18,
+      "code": "AltRight"
+     },
+     {
+      "key": "Ctrl",
+      "keyCode": 17,
+      "which": 17,
+      "code": "ControlRight"
+     },
+     {
+      "key": "◀",
+      "keyCode": 37,
+      "which": 37,
+      "code": "ArrowLeft"
+     },
+     {
+      "key": "▼",
+      "keyCode": 40,
+      "which": 40,
+      "code": "ArrowDown"
+     },
+     {
+      "key": "►",
+      "keyCode": 39,
+      "which": 39,
+      "code": "ArrowRight"
+     }
+]
