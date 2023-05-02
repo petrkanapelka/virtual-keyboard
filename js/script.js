@@ -1,3 +1,4 @@
+/* eslint no-param-reassign: ["error", { "props": false }] */
 window.addEventListener('DOMContentLoaded', () => {
   const value = [];
   let capslockIsOn = false;
@@ -5,16 +6,45 @@ window.addEventListener('DOMContentLoaded', () => {
   let pressShift = 0;
   let caretPositon;
   let language;
+  class Element {
+    constructor(type) {
+      this.elem = document.createElement(type);
+    }
+
+    appendTo(parent) {
+      parent.appendChild(this.elem);
+    }
+
+    setAttribute(name, values) {
+      this.elem.setAttribute(name, values);
+    }
+
+    addClass(classes) {
+      this.elem.classList.add(classes);
+    }
+
+    textContent(text) {
+      this.elem.textContent = text;
+    }
+
+    addKey(key) {
+      this.elem.key = key;
+    }
+
+    addCode(code) {
+      this.elem.code = code;
+    }
+  }
 
   function createTextarea() {
-    const textArea = document.createElement('TEXTAREA');
+    const textArea = new Element('TEXTAREA');
     textArea.setAttribute('name', 'post');
     textArea.setAttribute('maxlength', 5000);
     textArea.setAttribute('cols', 80);
     textArea.setAttribute('rows', 5);
     textArea.setAttribute('autofocus', true);
-    textArea.classList.add('textarea');
-    document.querySelector('body').appendChild(textArea);
+    textArea.addClass('textarea');
+    textArea.appendTo(document.querySelector('body'));
   }
   createTextarea();
 
@@ -24,43 +54,44 @@ window.addEventListener('DOMContentLoaded', () => {
   });
 
   function createKeyBoard() {
-    const keyBoard = document.createElement('div');
-    keyBoard.classList.add('keyboard');
-    document.querySelector('body').appendChild(keyBoard);
+    const keyBoard = new Element('div');
+    keyBoard.addClass('keyboard');
+    keyBoard.appendTo(document.querySelector('body'));
   }
   createKeyBoard();
 
   function createButton(btn) {
     const keyboard = document.querySelector('.keyboard');
     if (keyboard.childNodes.length === 0 || btn.code === 'Tab' || btn.code === 'CapsLock' || btn.code === 'ShiftLeft' || btn.code === 'ControlLeft') {
-      const newRow = document.createElement('div');
-      newRow.classList.add('row_new');
-      document.querySelector('.keyboard').appendChild(newRow);
+      const newRow = new Element('div');
+      newRow.addClass('row_new');
+      newRow.appendTo(document.querySelector('.keyboard'));
     }
-    const button = document.createElement('button');
-    button.textContent = btn.key;
-    button.code = btn.code;
-    button.key = btn.key;
-    button.classList.add('key');
+    const button = new Element('button');
+    button.textContent(btn.key);
+    button.addKey(btn.key);
+    button.addCode(btn.code);
+    button.addClass('key');
+
     if (btn.key.length !== 1 || btn.keyCode === 16) {
-      button.classList.add('key_black');
+      button.addClass('key_black');
     }
     if (btn.keyCode <= 40 && btn.keyCode >= 37) {
-      button.classList.add('key_black');
-      button.classList.add('key-simple');
+      button.addClass('key_black');
+      button.addClass('key-simple');
     }
     if (btn.code === 'Space') {
-      button.classList.add('space');
+      button.addClass('space');
     }
     if (btn.code === 'ShiftLeft') {
-      button.classList.add('shift');
+      button.addClass('shift');
     }
     if (btn.key.length === 1 && btn.code !== 'Space') {
-      button.classList.add('key-simple');
+      button.addClass('key-simple');
     }
-    button.classList.add(btn.code.toLowerCase());
+    button.addClass(btn.code.toLowerCase());
     const newLine = document.querySelectorAll('.row_new');
-    newLine[newLine.length - 1].appendChild(button);
+    newLine[newLine.length - 1].appendChild(button.elem);
   }
 
   const engKeyboard = 'json/english-keyboard.json';
@@ -97,9 +128,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const data = await res.json();
     const buttons = Array.from(keys);
     buttons.forEach((btn, indx) => {
-      // eslint-disable-next-line no-param-reassign
       btn.textContent = data[indx].key;
-      // eslint-disable-next-line no-param-reassign
       btn.key = data[indx].key;
     });
   }
@@ -121,9 +150,7 @@ window.addEventListener('DOMContentLoaded', () => {
     if (capslockIsOn === false) {
       buttons.forEach((btn) => {
         if (btn.key.length === 1) {
-          // eslint-disable-next-line no-param-reassign
           btn.textContent = btn.textContent.toUpperCase();
-          // eslint-disable-next-line no-param-reassign
           btn.key = btn.key.toUpperCase();
         }
       });
@@ -131,9 +158,7 @@ window.addEventListener('DOMContentLoaded', () => {
     } else {
       buttons.forEach((btn) => {
         if (btn.key.length === 1) {
-          // eslint-disable-next-line no-param-reassign
           btn.textContent = btn.textContent.toLowerCase();
-          // eslint-disable-next-line no-param-reassign
           btn.key = btn.key.toLowerCase();
         }
       });
